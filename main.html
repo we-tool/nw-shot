@@ -1,0 +1,20 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <script>
+      const gui = require('nw.gui')
+
+      const win = gui.Window.open('./home.html', {
+
+      })
+
+      win.on('closed', function () {
+        gui.App.quit()
+      })
+    </script>
+  </body>
+</html>

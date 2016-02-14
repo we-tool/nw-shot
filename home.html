@@ -1,0 +1,19 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <button id="btn" title="click to shot">shot</button>
+    <script>
+      const shot = require('./lib')
+      const gui = require('nw.gui')
+      
+      const btn = document.querySelector('#btn')
+      btn.addEventListener('click', function () {
+        shot(gui)
+      })
+    </script>
+  </body>
+</html>
