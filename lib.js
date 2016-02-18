@@ -1,9 +1,10 @@
 'use strict'
-const screencapture = require('screencapture')
+const screencapture = require('./fork/screencapture')
 const async = require('async')
 
 module.exports = function shot(gui) {
-  const screen = gui.Window.get().window.screen
+  const gwin = gui.Window.get()
+  const screen = gwin.window.screen
   const width = screen.width
   const height = screen.height
 
@@ -29,6 +30,10 @@ module.exports = function shot(gui) {
     },
   ], function (err, arr) {
 
+    if (err) {
+      return gwin.window.alert(err)
+    }
+
     const filename = arr[0]
     const win = arr[1]
     const doc = win.window.document
@@ -40,6 +45,7 @@ module.exports = function shot(gui) {
     canvas.setAttribute('height', height)
     img.src = `file:\/\/${filename}`
     img.addEventListener('load', function () {
+      // todo: retina 5k img
       ctx.drawImage(img, 0, 0, width, height)
       setTimeout(function () {
         win.moveTo(0, 0)

@@ -9,11 +9,15 @@
     <script>
       const shot = require('./lib')
       const gui = require('nw.gui')
+      const win = gui.Window.get()
       
       const btn = document.querySelector('#btn')
       btn.addEventListener('click', function () {
         shot(gui)
       })
+
+      win.show()
+      win.focus()
     </script>
   </body>
 </html>
