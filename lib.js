@@ -48,13 +48,18 @@ module.exports = function shot(gui) {
       // todo: retina 5k img
       ctx.drawImage(img, 0, 0, width, height)
       setTimeout(function () {
+        win.hide()
         win.moveTo(0, 0)
+        win.enterFullscreen()
+        win.show()
         win.focus()
-      }, 200) // 等待窗口动画+draw时间
+      }, 0) // 等待窗口动画+draw时间
     })
 
     doc.addEventListener('keydown', function(ev) {
-      if (ev.keyCode === 73 && ev.ctrlKey && ev.shiftKey) {
+      if (ev.metaKey || ev.ctrlKey)
+      if (ev.keyCode === 73 &&
+        (ev.ctrlKey && ev.shiftKey || ev.metaKey && ev.altKey)) {
         win.showDevTools()
       }
     })
