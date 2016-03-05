@@ -7,6 +7,6 @@
   "dependencies": {
     "async": "^1.5.2",
     "lodash": "^4.5.0",
-    "screencapture": "^0.2.1"
+    "tmp": "0.0.28"
   }
 }
