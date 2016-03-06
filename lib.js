@@ -3,6 +3,7 @@ const screencapture = require('./fork/screencapture')
 const async = require('async')
 
 module.exports = function shot(gui, cb) {
+  const osx = process.platform === 'darwin'
   const gwin = gui.Window.get()
   const screen = gwin.window.screen
   const width = screen.width
@@ -23,9 +24,7 @@ module.exports = function shot(gui, cb) {
         resizable: false,
       })
       win.on('loaded', function () {
-        setTimeout(function () {
-          next(null, win)
-        }, 200) // 等待窗口动画
+        next(null, win)
       })
       win.on('closed', function () {
         cb()
@@ -51,12 +50,15 @@ module.exports = function shot(gui, cb) {
       // todo: retina 5k img
       ctx.drawImage(img, 0, 0, width, height)
       setTimeout(function () {
-        win.hide()
-        win.moveTo(0, 0)
+        if (osx) {
+          win.hide()
+          win.moveTo(0, 0)
+          // win.moveTo(-6, -6) // no fullscreen
+        }
         win.enterFullscreen()
-        win.show()
+        if (osx) win.show()
         win.focus()
-      }, 0) // 等待窗口动画+draw时间
+      }, 300) // 等待窗口动画+draw时间
     })
 
     doc.addEventListener('keydown', function(ev) {

@@ -23,6 +23,7 @@
     <canvas id="canvas"></canvas>
     <script>
     'use strict'
+    const osx = process.platform === 'darwin'
     const gui = require('nw.gui')
     const win = gui.Window.get()
     let _exited = false
@@ -45,7 +46,7 @@
         setTimeout(function () {
           win.close()
         }, 100) // 确保cursor复原
-      }, 1000) // 确保大于1s 等待leaveFullscreen结束
+      }, osx ? 1000 : 0) // 确保大于1s 等待leaveFullscreen结束 (osx)
     }
     </script>
   </body>
