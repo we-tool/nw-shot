@@ -7,13 +7,19 @@
   <body>
     <button id="btn" title="click to shot">shot</button>
     <script>
+      'use strict'
       const shot = require('./lib')
       const gui = require('nw.gui')
       const win = gui.Window.get()
       
       const btn = document.querySelector('#btn')
+      let _capturing = false
       btn.addEventListener('click', function () {
-        shot(gui)
+        if (_capturing) return // 确保capture单例
+        _capturing = true
+        shot(gui, function () {
+          _capturing = false
+        })
       })
 
       win.show()

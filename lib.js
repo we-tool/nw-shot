@@ -2,7 +2,7 @@
 const screencapture = require('./fork/screencapture')
 const async = require('async')
 
-module.exports = function shot(gui) {
+module.exports = function shot(gui, cb) {
   const gwin = gui.Window.get()
   const screen = gwin.window.screen
   const width = screen.width
@@ -26,6 +26,9 @@ module.exports = function shot(gui) {
         setTimeout(function () {
           next(null, win)
         }, 200) // 等待窗口动画
+      })
+      win.on('closed', function () {
+        cb()
       })
     },
   ], function (err, arr) {
